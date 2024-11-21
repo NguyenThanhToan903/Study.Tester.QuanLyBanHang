@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace QuanLyBanHang
 {
@@ -19,7 +12,7 @@ namespace QuanLyBanHang
         //Chuỗi kết nối
         //string strConnectionString = @"Server=.\SQLEXPRESS;Database=QuanLyBanHang;Integrated Security=True";
         //or
-        string strConnectionString=@"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyBanHang;Integrated Security=SSPI";
+        string strConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyBanHang;Integrated Security=SSPI";
 
         //Đối tượng kết nối
         SqlConnection conn = null;
@@ -47,31 +40,102 @@ namespace QuanLyBanHang
         {
             try
             {
-                //Khởi động kết nối
+                ////Khởi động kết nối
+                //conn = new SqlConnection(strConnectionString);
+
+                ////Vận chuyển dữ liệu lên DataTable dtHoaDon
+                //daHoaDon = new SqlDataAdapter("SELECT * FROM HoaDon", conn);
+                //dtHoaDon = new DataTable();
+                //dtHoaDon.Clear();
+                //daHoaDon.Fill(dtHoaDon);
+
+                ////Đưa dữ liệu lên DataGridView
+                ////this.dgvHoaDon.DataSource = dtHoaDon;
+                //dgvHoaDon.AutoGenerateColumns = false;
+
+                ////Bổ sung thêm cho ví dụ 10.5
+                ////Vận chuyển dữ liệu lên DataTable dtKhachHang dùng cho combobox
+                //daKhachHang = new SqlDataAdapter("SELECT * FROM KhachHang", conn);
+                //dtKhachHang = new DataTable();
+                //dtKhachHang.Clear();
+                //daKhachHang.Fill(dtKhachHang);
+
+                //////Vận chuyển dữ liệu lên DataTable dtNhanVien dùng cho combobox
+                ////daNhanVien = new SqlDataAdapter("SELECT * FROM NhanVien", conn);
+                ////dtNhanVien = new DataTable();
+                ////dtNhanVien.Clear();
+                ////daNhanVien.Fill(dtNhanVien);
+
+                ////Vận chuyển dữ liệu lên DataTable dtHoaDon
+                //daNhanVien = new SqlDataAdapter("SELECT MaNV, (Ho + ' ' + Ten) AS HoTen FROM NhanVien", conn);
+                //dtNhanVien = new DataTable();
+                //dtNhanVien.Clear();
+                //daNhanVien.Fill(dtNhanVien);
+
+                ////  Đưa dữ liệu lên ComboBox trong DataGridView   
+                //(dgvHoaDon.Columns["MaKH"] as DataGridViewComboBoxColumn).DataSource = dtKhachHang;
+                //(dgvHoaDon.Columns["MaKH"] as DataGridViewComboBoxColumn).DisplayMember = "TenCty";
+                //(dgvHoaDon.Columns["MaKH"] as DataGridViewComboBoxColumn).ValueMember = "MaKH";
+
+                ////  Đưa dữ liệu lên ComboBox trong DataGridView   
+                //(dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).DataSource = dtNhanVien;
+                //(dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).DisplayMember = "HoTen";
+                //(dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).ValueMember = "MaNV";
+
+
+                //this.dgvHoaDon.DataSource = dtHoaDon;
+
+                //dgvHoaDon.AutoGenerateColumns = false;
                 conn = new SqlConnection(strConnectionString);
 
-                //Vận chuyển dữ liệu lên DataTable dtHoaDon
-                daHoaDon = new SqlDataAdapter("SELECT * FROM HoaDon", conn);
-                dtHoaDon = new DataTable();
-                dtHoaDon.Clear();
-                daHoaDon.Fill(dtHoaDon);
-                //Đưa dữ liệu lên DataGridView
-                this.dgvHoaDon.DataSource = dtHoaDon;
-
-                //Bổ sung thêm cho ví dụ 10.5
-                //Vận chuyển dữ liệu lên DataTable dtKhachHang dùng cho combobox
+                //Vận chuyển dữ liệu lên DataTable dtKhachHang
                 daKhachHang = new SqlDataAdapter("SELECT * FROM KhachHang", conn);
                 dtKhachHang = new DataTable();
                 dtKhachHang.Clear();
                 daKhachHang.Fill(dtKhachHang);
 
-                //Vận chuyển dữ liệu lên DataTable dtNhanVien dùng cho combobox
-                daNhanVien = new SqlDataAdapter("SELECT * FROM NhanVien", conn);
+                //Xóa các đối tượng trong Panel
+                //Đưa dữ liệu lên ComboBox
+                this.cbMaKH.DataSource = dtKhachHang;
+                this.cbMaKH.DisplayMember = "TenCty";
+                this.cbMaKH.ValueMember = "MaKH";
+
+
+                //Vận chuyển dữ liệu lên DataTable dtHoaDon
+                daNhanVien = new SqlDataAdapter("SELECT MaNV, (Ho + ' ' + Ten) AS HoTen FROM NhanVien", conn);
                 dtNhanVien = new DataTable();
                 dtNhanVien.Clear();
                 daNhanVien.Fill(dtNhanVien);
-                
-               //Xóa các đối tượng trong Panel
+
+                //  Đưa dữ liệu lên ComboBox trong DataGridView   
+                (dgvHoaDon.Columns["MaKH"] as DataGridViewComboBoxColumn).DataSource = dtKhachHang;
+                (dgvHoaDon.Columns["MaKH"] as DataGridViewComboBoxColumn).DisplayMember = "TenCty";
+                (dgvHoaDon.Columns["MaKH"] as DataGridViewComboBoxColumn).ValueMember = "MaKH";
+
+                //  Đưa dữ liệu lên ComboBox trong DataGridView   
+                (dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).DataSource = dtNhanVien;
+                (dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).DisplayMember = "HoTen";
+                (dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).ValueMember = "MaNV";
+
+
+
+                //Vận chuyển dữ liệu lên DataTable dtKhachHang
+                daHoaDon = new SqlDataAdapter("SELECT * FROM HoaDon", conn);
+                dtHoaDon = new DataTable();
+                dtHoaDon.Clear();
+                daHoaDon.Fill(dtHoaDon);
+
+                //Đưa dữ liệu lên DataGridView
+                this.dgvHoaDon.DataSource = dtHoaDon;
+                //Thay đổi độ rộng cột
+                dgvHoaDon.AutoResizeColumns();
+
+                //Đếm số dòng trong datatable dtKhachHang
+                //int soKH dtKhachHang.Rows.Count();
+                //int soHD = Convert.ToInt32(dtHoaDon.Compute("COUNT(MAHD)", string.Empty));
+                ////MessageBox.Show(soKH.ToString(), "Số dòng");
+                //this.txtTongSoHD.Text = soHD.ToString();
+                //Xóa các đối tượng trong Panel
                 this.txtMaHD.ResetText();
                 this.txtNgayLapHD.ResetText();
                 this.txtNgayNhanHang.ResetText();
@@ -129,7 +193,8 @@ namespace QuanLyBanHang
                 MessageBox.Show("Đã xóa xong!");
 
             }
-            catch(SqlException){
+            catch (SqlException)
+            {
                 MessageBox.Show("Không xóa được. Lỗi rồi!!!");
             }
             //Đóng kết nối
@@ -142,7 +207,7 @@ namespace QuanLyBanHang
             this.txtMaHD.ResetText();
             this.txtNgayLapHD.ResetText();
             this.txtNgayNhanHang.ResetText();
- 
+
             //Cho thao tác trên các nút Thêm / Sửa / Xóa / Thoát
             this.btnThem.Enabled = true;
             this.btnSua.Enabled = true;
@@ -228,7 +293,7 @@ namespace QuanLyBanHang
         {
             //Mở kết nối
             conn.Open();
-            if(Them)
+            if (Them)
             {
                 try
                 {
@@ -240,7 +305,7 @@ namespace QuanLyBanHang
                     cmd.CommandText = System.String.Concat("Insert into HoaDon values(" + "'" +
                         this.txtMaHD.Text.ToString() + "','" + this.cbMaKH.SelectedValue.ToString() + "','" +
                         this.cbMaNV.SelectedValue.ToString() + "','" + this.txtNgayLapHD.Text.ToString() + "','" +
-                        this.txtNgayNhanHang.Text.ToString()+"')");
+                        this.txtNgayNhanHang.Text.ToString() + "')");
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
                     //Load lại dữ liệu trên DataGridView
@@ -255,7 +320,7 @@ namespace QuanLyBanHang
             }//if
 
             //for updating data
-            if(!Them)
+            if (!Them)
             {
                 try
                 {
@@ -268,10 +333,10 @@ namespace QuanLyBanHang
                     //MaKH hiện hành
                     string strMAHD = dgvHoaDon.Rows[r].Cells[0].Value.ToString();
                     //Câu lệnh SQL
-                    cmd.CommandText = System.String.Concat("Update HoaDon Set MaHD='"+
-                        this.txtMaHD.Text.ToString() + "', MaKH ='" + 
-                        this.cbMaKH.SelectedValue.ToString() + "', MaNV ='" + this.cbMaNV.SelectedValue.ToString() 
-                        + "', NgayLapHD ='" + this.txtNgayLapHD.Text.ToString() + "', MaKH ='" + this.txtNgayNhanHang.Text.ToString() + 
+                    cmd.CommandText = System.String.Concat("Update HoaDon Set MaHD='" +
+                        this.txtMaHD.Text.ToString() + "', MaKH ='" +
+                        this.cbMaKH.SelectedValue.ToString() + "', MaNV ='" + this.cbMaNV.SelectedValue.ToString()
+                        + "', NgayLapHD ='" + this.txtNgayLapHD.Text.ToString() + "', MaKH ='" + this.txtNgayNhanHang.Text.ToString() +
                         "' where MaHD ='" + strMAHD + "'");
                     //Cập nhật
                     cmd.CommandType = CommandType.Text;
@@ -281,7 +346,7 @@ namespace QuanLyBanHang
                     //Thông báo
                     MessageBox.Show("Đã sửa xong!");
                 }
-                catch(SqlException)
+                catch (SqlException)
                 {
                     MessageBox.Show("Không sửa được. Lỗi rồi!");
                 }
@@ -300,5 +365,5 @@ namespace QuanLyBanHang
             LoadData();
         }
 
-   }
+    }
 }
