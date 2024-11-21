@@ -57,7 +57,8 @@ namespace QuanLyBanHang
 
                 #region [Fix] Tieu de ma khach hang tieng Viet
                 //Vận chuyển dữ liệu lên DataTable dtKhachHang
-                daKhachHang = new SqlDataAdapter("SELECT  * FROM Khachhang", conn);
+                //daKhachHang = new SqlDataAdapter("SELECT  * FROM Khachhang", conn);
+                daKhachHang = new SqlDataAdapter("SELECT  MaKH AS [Mã KH], TenCty AS [Tên Công Ty], DiaChi AS [Địa Chỉ], ThanhPho AS [Thành Phố], DienThoai AS [Điện Thoại] FROM Khachhang", conn);
                 #endregion
                 dtKhachHang = new DataTable();
                 dtKhachHang.Clear();
@@ -68,8 +69,10 @@ namespace QuanLyBanHang
                 dgvKhachHang.AutoResizeColumns();
 
                 //Đếm số dòng trong datatable dtKhachHang
-                //int soKH dtKhachHang.Rows.Count();
-                int soKH = Convert.ToInt32(dtKhachHang.Compute("COUNT(MAKH)", string.Empty)) + 1;
+                #region Để đếm số dòng sau khi chuyên MaKH thành Mã KH
+                int soKH = dtKhachHang.Rows.Count;
+                //int soKH = Convert.ToInt32(dtKhachHang.Compute("COUNT(MAKH)", string.Empty)) + 1;
+                #endregion
                 //MessageBox.Show(soKH.ToString(), "Số dòng");
                 this.txtTongSoKH.Text = soKH.ToString();
 
