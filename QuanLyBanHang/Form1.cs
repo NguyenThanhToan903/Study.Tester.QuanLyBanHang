@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuanLyBanHang
@@ -23,7 +16,8 @@ namespace QuanLyBanHang
             frm.ShowDialog();
         }
 
-        private void XemDanhMuc(int intDanhMuc) {
+        private void XemDanhMuc(int intDanhMuc)
+        {
             Form frm = new Form3();
             frm.Text = intDanhMuc.ToString();
             frm.ShowDialog();
@@ -37,7 +31,7 @@ namespace QuanLyBanHang
         private void thoátToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult traloi;
-            traloi = MessageBox.Show("Chắc không?","Trả lời", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            traloi = MessageBox.Show("Chắc không?", "Trả lời", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (traloi == DialogResult.OK) Application.Exit();
         }
 

@@ -16,10 +16,12 @@ namespace QuanLyBanHang
                 this.Close();
             else
             {
-                // [Fix] Lỗi giao diện chức năng đăng nhập
+
+                #region [Fix] Lỗi giao diện chức năng đăng nhập
                 //MessageBox.Show("Không đúng tên người dùng ? mật khẩu!!!", "Thông báo");
-                // [Fixed]
+                // [Fixed] 
                 MessageBox.Show("Không đúng tên người dùng / mật khẩu!!!", "Thông báo");
+                #endregion 
                 this.txtUser.Focus();
             }
         }
@@ -42,7 +44,30 @@ namespace QuanLyBanHang
 
         }
 
+        #region [fix] How to know user has clicked "X" or the "Close" button?
+        public bool ClosedByXButtonOrAltF4 { get; private set; }
+        private const int SC_CLOSE = 0xF060;
+        private const int WM_SYSCOMMAND = 0x0112;
 
+        protected override void WndProc(ref Message msg)
+        {
+            if (msg.Msg == WM_SYSCOMMAND && msg.WParam.ToInt32() == SC_CLOSE)
+                ClosedByXButtonOrAltF4 = true;
+            base.WndProc(ref msg);
+        }
+        protected override void OnShown(EventArgs e)
+        {
+            ClosedByXButtonOrAltF4 = false;
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (ClosedByXButtonOrAltF4)
+                // MessageBox.Show("Closed by X or Alt+F4");
+                Application.Exit();
+            //else
+            //    MessageBox.Show("Closed by calling Close()");
+        }
+        #endregion
 
     }
 }
