@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuanLyBanHang
@@ -23,7 +16,10 @@ namespace QuanLyBanHang
                 this.Close();
             else
             {
-                MessageBox.Show("Không đúng tên người dùng ? mật khẩu!!!", "Thông báo");
+                // [Fix] Lỗi giao diện chức năng đăng nhập
+                //MessageBox.Show("Không đúng tên người dùng ? mật khẩu!!!", "Thông báo");
+                // [Fixed]
+                MessageBox.Show("Không đúng tên người dùng / mật khẩu!!!", "Thông báo");
                 this.txtUser.Focus();
             }
         }
@@ -45,5 +41,8 @@ namespace QuanLyBanHang
         {
 
         }
+
+
+
     }
 }
