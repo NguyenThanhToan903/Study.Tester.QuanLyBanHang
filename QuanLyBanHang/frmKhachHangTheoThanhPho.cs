@@ -69,9 +69,9 @@ namespace QuanLyBanHang
                 dgvKhachHang.AutoResizeColumns();
 
                 //Đếm số dòng trong datatable dtKhachHang
-                #region Để đếm số dòng sau khi chuyên MaKH thành Mã KH
-                int soKH = dtKhachHang.Rows.Count;
+                #region [Fix] Tong so thong ke khong dung o chuc nang Quan ly khanh hang theo thanh pho
                 //int soKH = Convert.ToInt32(dtKhachHang.Compute("COUNT(MAKH)", string.Empty)) + 1;
+                int soKH = dtKhachHang.Rows.Count;
                 #endregion
                 //MessageBox.Show(soKH.ToString(), "Số dòng");
                 this.txtTongSoKH.Text = soKH.ToString();
