@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace QuanLyBanHang
 {
@@ -19,7 +12,7 @@ namespace QuanLyBanHang
         //Chuỗi kết nối
         //string strConnectionString = @"Server=.\SQLEXPRESS;Database=QuanLyBanHang;Integrated Security=True";
         //or
-        string strConnectionString=@"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyBanHang;Integrated Security=SSPI";
+        string strConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyBanHang;Integrated Security=SSPI";
 
         //Đối tượng kết nối
         SqlConnection conn = null;
@@ -60,7 +53,7 @@ namespace QuanLyBanHang
                 //  Đưa dữ liệu lên ComboBox trong DataGridView   
                 (dgvKhachHang.Columns["ThanhPho"] as DataGridViewComboBoxColumn).DataSource = dtThanhPho;
                 (dgvKhachHang.Columns["ThanhPho"] as DataGridViewComboBoxColumn).DisplayMember = "TenThanhPho";
-                (dgvKhachHang.Columns["ThanhPho"] as DataGridViewComboBoxColumn).ValueMember = "ThanhPho"; 
+                (dgvKhachHang.Columns["ThanhPho"] as DataGridViewComboBoxColumn).ValueMember = "ThanhPho";
 
                 //Vận chuyển dữ liệu lên DataTable dtKhachHang
                 daKhachHang = new SqlDataAdapter("SELECT * FROM Khachhang", conn);
@@ -74,8 +67,8 @@ namespace QuanLyBanHang
 
                 //Bổ sung thêm cho ví dụ 10.5
 
-                
-               //Xóa các đối tượng trong Panel
+
+                //Xóa các đối tượng trong Panel
                 this.txtMaKH.ResetText();
                 this.txtTenCty.ResetText();
                 this.txtDienthoai.ResetText();
@@ -113,6 +106,15 @@ namespace QuanLyBanHang
             LoadData();
         }
 
+        #region [Fix] Tao ham kiem tra du lieu trong
+        private bool checkEmptyData()
+        {
+            if (txtMaKH.Text == "" || txtTenCty.Text == "" || txtDiachi.Text == "" || txtDienthoai.Text == "")
+                return true;
+            return false;
+        }
+        #endregion
+
         private void btnXoa_Click(object sender, EventArgs e)
         {
             //Mở kết nối
@@ -138,7 +140,8 @@ namespace QuanLyBanHang
                 MessageBox.Show("Đã xóa xong!");
 
             }
-            catch(SqlException){
+            catch (SqlException)
+            {
                 MessageBox.Show("Không xóa được. Lỗi rồi!!!");
             }
             //Đóng kết nối
@@ -226,7 +229,7 @@ namespace QuanLyBanHang
         {
             //Mở kết nối
             conn.Open();
-            if(Them)
+            if (Them)
             {
                 try
                 {
@@ -235,7 +238,8 @@ namespace QuanLyBanHang
                     cmd.Connection = conn;
                     cmd.CommandType = CommandType.Text;
                     //Lệnh Insert InTo
-                    cmd.CommandText = System.String.Concat("Insert into KhachHang values(" + "'" + 
+                    #region [Fix] Loi font tieng Viet [Khach Hang]
+                    cmd.CommandText = System.String.Concat("Insert into KhachHang values(" + "'" +
                         this.txtMaKH.Text.ToString() + "','" + this.txtTenCty.Text.ToString() + "','" +
                         this.txtDiachi.Text.ToString() + "','" + this.cbThanhPho.SelectedValue.ToString() + "','" +
                         this.txtDienthoai.Text.ToString() + "')");
@@ -253,10 +257,14 @@ namespace QuanLyBanHang
             }//if
 
             //for updating data
-            if(!Them)
+            if (!Them)
             {
                 try
+
                 {
+                    #region [fix] Loi them khach hang o chuc nang quan ly danh muc khach hang ma khong nhap gi ca
+                    if (checkEmptyData()) throw new Exception();
+                    #endregion
                     //Thực hiện lệnh
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = conn;
@@ -266,10 +274,10 @@ namespace QuanLyBanHang
                     //MaKH hiện hành
                     string strMAKH = dgvKhachHang.Rows[r].Cells[0].Value.ToString();
                     //Câu lệnh SQL
-                    cmd.CommandText = System.String.Concat("Update KhachHang Set TenCty='"+
-                        this.txtTenCty.Text.ToString() + "', Diachi ='" + 
+                    cmd.CommandText = System.String.Concat("Update KhachHang Set TenCty='" +
+                        this.txtTenCty.Text.ToString() + "', Diachi ='" +
                         this.txtDiachi.Text.ToString() + "', ThanhPho ='" + this.cbThanhPho.SelectedValue.ToString()
-                        + "', DienThoai ='" + this.txtDienthoai.Text.ToString() + "', MaKH ='" + this.txtMaKH.Text.ToString() + 
+                        + "', DienThoai ='" + this.txtDienthoai.Text.ToString() + "', MaKH ='" + this.txtMaKH.Text.ToString() +
                         "' where MaKH ='" + strMAKH + "'");
                     //Cập nhật
                     cmd.CommandType = CommandType.Text;
@@ -279,7 +287,7 @@ namespace QuanLyBanHang
                     //Thông báo
                     MessageBox.Show("Đã sửa xong!");
                 }
-                catch(SqlException)
+                catch (SqlException)
                 {
                     MessageBox.Show("Không sửa được. Lỗi rồi!");
                 }

@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace QuanLyBanHang
 {
@@ -18,7 +11,7 @@ namespace QuanLyBanHang
         //Chuỗi kết nối
         //string strConnectionString = @"Server=.\SQLEXPRESS;Database=QuanLyBanHang;Integrated Security=True";
         //or
-        string strConnectionString=@"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyBanHang;Integrated Security=SSPI";
+        string strConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyBanHang;Integrated Security=SSPI";
 
         //Đối tượng kết nối
         SqlConnection conn = null;
@@ -61,10 +54,11 @@ namespace QuanLyBanHang
                 this.cbThanhPho.DataSource = dtThanhPho;
                 this.cbThanhPho.DisplayMember = "TenThanhPho";
                 this.cbThanhPho.ValueMember = "ThanhPho";
-    
-     
+
+                #region [Fix] Tieu de ma khach hang tieng Viet
                 //Vận chuyển dữ liệu lên DataTable dtKhachHang
-                daKhachHang = new SqlDataAdapter("SELECT * FROM Khachhang", conn);
+                daKhachHang = new SqlDataAdapter("SELECT  * FROM Khachhang", conn);
+                #endregion
                 dtKhachHang = new DataTable();
                 dtKhachHang.Clear();
                 daKhachHang.Fill(dtKhachHang);
@@ -78,7 +72,7 @@ namespace QuanLyBanHang
                 int soKH = Convert.ToInt32(dtKhachHang.Compute("COUNT(MAKH)", string.Empty)) + 1;
                 //MessageBox.Show(soKH.ToString(), "Số dòng");
                 this.txtTongSoKH.Text = soKH.ToString();
-                
+
             }
             catch (SqlException)
             {
