@@ -243,6 +243,7 @@ namespace QuanLyBanHang
                         this.txtMaKH.Text.ToString() + "',N'" + this.txtTenCty.Text.ToString() + "',N'" +
                         this.txtDiachi.Text.ToString() + "','" + this.cbThanhPho.SelectedValue.ToString() + "','" +
                         this.txtDienthoai.Text.ToString() + "')");
+
                     #endregion
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
