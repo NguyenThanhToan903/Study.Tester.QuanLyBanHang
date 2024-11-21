@@ -40,67 +40,25 @@ namespace QuanLyBanHang
         {
             try
             {
-                ////Khởi động kết nối
-                //conn = new SqlConnection(strConnectionString);
-
-                ////Vận chuyển dữ liệu lên DataTable dtHoaDon
-                //daHoaDon = new SqlDataAdapter("SELECT * FROM HoaDon", conn);
-                //dtHoaDon = new DataTable();
-                //dtHoaDon.Clear();
-                //daHoaDon.Fill(dtHoaDon);
-
-                ////Đưa dữ liệu lên DataGridView
-                ////this.dgvHoaDon.DataSource = dtHoaDon;
-                //dgvHoaDon.AutoGenerateColumns = false;
-
-                ////Bổ sung thêm cho ví dụ 10.5
-                ////Vận chuyển dữ liệu lên DataTable dtKhachHang dùng cho combobox
-                //daKhachHang = new SqlDataAdapter("SELECT * FROM KhachHang", conn);
-                //dtKhachHang = new DataTable();
-                //dtKhachHang.Clear();
-                //daKhachHang.Fill(dtKhachHang);
-
-                //////Vận chuyển dữ liệu lên DataTable dtNhanVien dùng cho combobox
-                ////daNhanVien = new SqlDataAdapter("SELECT * FROM NhanVien", conn);
-                ////dtNhanVien = new DataTable();
-                ////dtNhanVien.Clear();
-                ////daNhanVien.Fill(dtNhanVien);
-
-                ////Vận chuyển dữ liệu lên DataTable dtHoaDon
-                //daNhanVien = new SqlDataAdapter("SELECT MaNV, (Ho + ' ' + Ten) AS HoTen FROM NhanVien", conn);
-                //dtNhanVien = new DataTable();
-                //dtNhanVien.Clear();
-                //daNhanVien.Fill(dtNhanVien);
-
-                ////  Đưa dữ liệu lên ComboBox trong DataGridView   
-                //(dgvHoaDon.Columns["MaKH"] as DataGridViewComboBoxColumn).DataSource = dtKhachHang;
-                //(dgvHoaDon.Columns["MaKH"] as DataGridViewComboBoxColumn).DisplayMember = "TenCty";
-                //(dgvHoaDon.Columns["MaKH"] as DataGridViewComboBoxColumn).ValueMember = "MaKH";
-
-                ////  Đưa dữ liệu lên ComboBox trong DataGridView   
-                //(dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).DataSource = dtNhanVien;
-                //(dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).DisplayMember = "HoTen";
-                //(dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).ValueMember = "MaNV";
-
-
-                //this.dgvHoaDon.DataSource = dtHoaDon;
-
-                //dgvHoaDon.AutoGenerateColumns = false;
+                //Khởi động kết nối
                 conn = new SqlConnection(strConnectionString);
 
-                //Vận chuyển dữ liệu lên DataTable dtKhachHang
+                //Vận chuyển dữ liệu lên DataTable dtHoaDon
+                daHoaDon = new SqlDataAdapter("SELECT * FROM HoaDon", conn);
+                dtHoaDon = new DataTable();
+                dtHoaDon.Clear();
+                daHoaDon.Fill(dtHoaDon);
+                //Đưa dữ liệu lên DataGridView
+                this.dgvHoaDon.DataSource = dtHoaDon;
+
+                //Bổ sung thêm cho ví dụ 10.5
+                //Vận chuyển dữ liệu lên DataTable dtKhachHang dùng cho combobox
                 daKhachHang = new SqlDataAdapter("SELECT * FROM KhachHang", conn);
                 dtKhachHang = new DataTable();
                 dtKhachHang.Clear();
                 daKhachHang.Fill(dtKhachHang);
 
-                //Xóa các đối tượng trong Panel
-                //Đưa dữ liệu lên ComboBox
-                this.cbMaKH.DataSource = dtKhachHang;
-                this.cbMaKH.DisplayMember = "TenCty";
-                this.cbMaKH.ValueMember = "MaKH";
-
-
+                #region [Fix] Li datagridview trong Hoa Don chua co cot tieng Viet
                 //Vận chuyển dữ liệu lên DataTable dtHoaDon
                 daNhanVien = new SqlDataAdapter("SELECT MaNV, (Ho + ' ' + Ten) AS HoTen FROM NhanVien", conn);
                 dtNhanVien = new DataTable();
@@ -117,24 +75,7 @@ namespace QuanLyBanHang
                 (dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).DisplayMember = "HoTen";
                 (dgvHoaDon.Columns["MaNV"] as DataGridViewComboBoxColumn).ValueMember = "MaNV";
 
-
-
-                //Vận chuyển dữ liệu lên DataTable dtKhachHang
-                daHoaDon = new SqlDataAdapter("SELECT * FROM HoaDon", conn);
-                dtHoaDon = new DataTable();
-                dtHoaDon.Clear();
-                daHoaDon.Fill(dtHoaDon);
-
-                //Đưa dữ liệu lên DataGridView
-                this.dgvHoaDon.DataSource = dtHoaDon;
-                //Thay đổi độ rộng cột
-                dgvHoaDon.AutoResizeColumns();
-
-                //Đếm số dòng trong datatable dtKhachHang
-                //int soKH dtKhachHang.Rows.Count();
-                //int soHD = Convert.ToInt32(dtHoaDon.Compute("COUNT(MAHD)", string.Empty));
-                ////MessageBox.Show(soKH.ToString(), "Số dòng");
-                //this.txtTongSoHD.Text = soHD.ToString();
+                #endregion
                 //Xóa các đối tượng trong Panel
                 this.txtMaHD.ResetText();
                 this.txtNgayLapHD.ResetText();

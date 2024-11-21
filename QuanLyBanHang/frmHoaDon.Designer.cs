@@ -242,37 +242,50 @@
             // 
             // MaHD
             // 
-            this.MaHD.HeaderText = "Mã HD";
+            this.MaHD.DataPropertyName = "MaHD";
+            this.MaHD.HeaderText = " Mã HĐ";
             this.MaHD.MinimumWidth = 8;
             this.MaHD.Name = "MaHD";
             this.MaHD.Width = 150;
             // 
             // MaKH
             // 
+            this.MaKH.DataPropertyName = "MaKH";
+            this.MaKH.DisplayStyleForCurrentCellOnly = true;
             this.MaKH.HeaderText = "Tên Cty";
             this.MaKH.MinimumWidth = 8;
             this.MaKH.Name = "MaKH";
+            this.MaKH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.MaKH.Width = 150;
             // 
             // MaNV
             // 
+            this.MaNV.DataPropertyName = "MaNV";
+            this.MaNV.DisplayStyleForCurrentCellOnly = true;
             this.MaNV.HeaderText = "Mã NV";
             this.MaNV.MinimumWidth = 8;
             this.MaNV.Name = "MaNV";
+            this.MaNV.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.MaNV.Width = 150;
             // 
             // NgayLapHD
             // 
-            this.NgayLapHD.HeaderText = "Ngày Lập HD";
+            this.NgayLapHD.DataPropertyName = "NgayLapHD";
+            this.NgayLapHD.HeaderText = "Ngày lặp HĐ";
             this.NgayLapHD.MinimumWidth = 8;
             this.NgayLapHD.Name = "NgayLapHD";
+            this.NgayLapHD.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.NgayLapHD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.NgayLapHD.Width = 150;
             // 
             // NgayNhanHang
             // 
+            this.NgayNhanHang.DataPropertyName = "NgayNhanHang";
             this.NgayNhanHang.HeaderText = "Ngày Nhận Hàng";
             this.NgayNhanHang.MinimumWidth = 8;
             this.NgayNhanHang.Name = "NgayNhanHang";
+            this.NgayNhanHang.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.NgayNhanHang.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.NgayNhanHang.Width = 150;
             // 
             // frmHoaDon
